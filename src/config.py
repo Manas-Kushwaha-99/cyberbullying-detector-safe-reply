@@ -36,7 +36,7 @@ VAL_RATIO = 0.10
 TEST_RATIO = 0.10
 
 # ── Device ────────────────────────────────────────────────────────
-DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+DEVICE = torch.device("cpu")
 
 # ── Model Hyperparameters ─────────────────────────────────────────
 # TF-IDF + SVM

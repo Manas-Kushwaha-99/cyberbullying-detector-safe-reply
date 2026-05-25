@@ -70,7 +70,7 @@ model = CyberbullyingLSTM(
     bidirectional=LSTM_BIDIRECTIONAL,
     pretrained_embeddings=None
 ).to(DEVICE)
-model.load_state_dict(torch.load(os.path.join(MODELS_DIR, "lstm.pt"), weights_only=True))
+model.load_state_dict(torch.load(os.path.join(MODELS_DIR, "lstm.pt"), weights_only=True, map_location='cpu'))
 model.eval()
 
 test_preds = []

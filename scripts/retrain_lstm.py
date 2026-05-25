@@ -201,7 +201,7 @@ train_time = time.time() - start_time
 print(f"[LSTM] Training completed in {train_time:.1f}s")
 
 # Load best model for evaluation
-model.load_state_dict(torch.load(os.path.join(MODELS_DIR, "lstm.pt")))
+model.load_state_dict(torch.load(os.path.join(MODELS_DIR, "lstm.pt"), map_location='cpu'))
 model.eval()
 
 # Test evaluation

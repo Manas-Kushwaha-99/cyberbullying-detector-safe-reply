@@ -88,7 +88,7 @@ def load_detection_models():
             bidirectional=LSTM_BIDIRECTIONAL,
             pretrained_embeddings=None
         ).to(DEVICE)
-        lstm_model.load_state_dict(torch.load(os.path.join(MODELS_DIR, "lstm.pt"), weights_only=True))
+        lstm_model.load_state_dict(torch.load(os.path.join(MODELS_DIR, "lstm.pt"), weights_only=True, map_location='cpu'))
         lstm_model.eval()
         models["lstm"] = (lstm_model, lstm_vocab)
     except Exception as e:

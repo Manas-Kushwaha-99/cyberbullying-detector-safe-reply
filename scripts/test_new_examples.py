@@ -34,7 +34,7 @@ lstm_model = CyberbullyingLSTM(
     num_classes=NUM_CLASSES, num_layers=LSTM_NUM_LAYERS, dropout=LSTM_DROPOUT,
     bidirectional=LSTM_BIDIRECTIONAL, pretrained_embeddings=None
 ).to(DEVICE)
-lstm_model.load_state_dict(torch.load(os.path.join(MODELS_DIR, "lstm.pt"), weights_only=True))
+lstm_model.load_state_dict(torch.load(os.path.join(MODELS_DIR, "lstm.pt"), weights_only=True, map_location='cpu'))
 lstm_model.eval()
 
 distilbert_path = os.path.join(MODELS_DIR, "distilbert")
