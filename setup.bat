@@ -4,7 +4,7 @@ setlocal EnableDelayedExpansion
 :: ── CONFIGURATION ────────────────────────────────────────────────
 set "REPO_OWNER=Manas-Kushwaha-99"
 set "REPO_NAME=cyberbullying-detector-safe-reply"
-set "RELEASE_TAG=v1.0.0"
+set "RELEASE_TAG=v1.0.1"
 set "BASE_URL=https://github.com/%REPO_OWNER%/%REPO_NAME%/releases/download/%RELEASE_TAG%"
 
 :: ── CHECK IF ALREADY IN PROJECT ─────────────────────────────────
