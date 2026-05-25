@@ -236,9 +236,6 @@ def main():
             "calm, respectful de-escalation responses directed at the person "
             "saying the hate speech."
         )
-        if str(DEVICE) == "cpu":
-            st.warning("Running on CPU. Detection and reply generation will be slower.")
-    
     # Tabs
     tab1, tab2 = st.tabs(["🔍 Detection", "💬 Reply Generator"])
     

@@ -8,7 +8,7 @@ AI-powered detection of online hate speech with intelligent, de-escalatory reply
 - **Multi-class Classification**: Detects ethnicity/race, gender/sexual, religion, and not_cyberbullying
 - **Safe Reply Generator**: Fine-tuned FLAN-T5-small generates calm, firm, educational de-escalation responses
 - **Streamlit Frontend**: Clean, interactive web UI for real-time detection and reply generation
-- **CPU Fallback**: Automatically runs on CPU if no NVIDIA GPU is available
+- **CPU-Only**: Runs entirely on CPU — no NVIDIA GPU required
 
 ## Quick Start (For End Users)
 
@@ -47,22 +47,14 @@ The app will open at **http://localhost:8501**.
 ├── src/
 │   ├── config.py                   # Central configuration
 │   ├── preprocessing.py            # Text preprocessing
-│   ├── models/
-│   │   ├── lstm_model.py           # LSTM architecture
-│   │   └── tfidf_svm.py            # TF-IDF + SVM classifier
-│   └── ...
+│   └── models/
+│       ├── lstm_model.py           # LSTM architecture
+│       └── tfidf_svm.py            # TF-IDF + SVM classifier
 ├── scripts/
-│   ├── retrain_tfidf_svm.py        # Retrain TF-IDF + SVM
-│   ├── retrain_lstm.py             # Retrain LSTM
-│   ├── retrain_distilbert.py       # Retrain DistilBERT
-│   ├── retrain_distilbert_lora.py  # Retrain DistilBERT + LoRA
-│   ├── train_flan_t5_reply_v3.py   # Train reply generator
-│   └── ...
-├── data/synthetic/                 # Enhanced dataset (generated)
-├── models_new/                     # Trained models (downloaded from release)
-├── figures(New)/                   # Result figures
-├── tables(New)/                    # Result tables
-└── reports(New)/                   # Consolidated metrics
+│   ├── create_desktop_shortcut.ps1
+│   ├── download_models.ps1
+│   └── zip_models_for_release.ps1
+└── models_new/                     # Trained models (downloaded from release)
 ```
 
 ## Model Performance (V2 Enhanced Dataset)
@@ -87,8 +79,8 @@ The app will open at **http://localhost:8501**.
 - **OS**: Windows 10/11
 - **Python**: 3.9+
 - **RAM**: 8 GB minimum (16 GB recommended)
-- **GPU**: NVIDIA GPU with CUDA support recommended (RTX 3060 Ti or better)
-- **CPU**: Works on CPU but slower for DistilBERT inference
+- **Storage**: ~1 GB free space for models
+- **GPU**: Not required — runs on CPU only
 
 ## License
 
