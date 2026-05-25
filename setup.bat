@@ -59,7 +59,7 @@ if errorlevel 1 (
 
 echo [1/6] Extracting source code...
 powershell -NoProfile -ExecutionPolicy Bypass -Command "$ProgressPreference='SilentlyContinue'; Expand-Archive -Path '%PROJECT_DIR%\source.zip' -DestinationPath '%PROJECT_DIR%\temp_src' -Force"
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$src = Get-ChildItem '%PROJECT_DIR%\temp_src' -Directory | Select-Object -First 1; if ($src) { robocopy $src.FullName '%PROJECT_DIR%' /E /MOVE > $null }"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$src = Get-ChildItem '%PROJECT_DIR%\temp_src' -Directory ^| Select-Object -First 1; if ($src) { robocopy $src.FullName '%PROJECT_DIR%' /E /MOVE ^> $null }"
 if exist "%PROJECT_DIR%\temp_src" rmdir /S /Q "%PROJECT_DIR%\temp_src"
 del "%PROJECT_DIR%\source.zip" >nul 2>&1
 cd /d "%PROJECT_DIR%"
@@ -94,41 +94,55 @@ if errorlevel 1 (
 echo [5/6] Downloading AI models...
 if not exist "models(New)" mkdir "models(New)"
 
-if not exist "models(New)\distilbert_lora" (
-    echo          Downloading detection_models.zip (~253 MB)...
-    powershell -NoProfile -ExecutionPolicy Bypass -Command "$ProgressPreference='SilentlyContinue'; try { Invoke-WebRequest -Uri '%BASE_URL%/detection_models.zip' -OutFile 'detection_models.zip' -MaximumRedirection 5 } catch { exit 1 }"
-    if errorlevel 1 (
-        echo [ERROR] Failed to download detection_models.zip.
-        echo         You can manually download it from:
-        echo         %BASE_URL%/detection_models.zip
-        echo         and extract it to: %PROJECT_DIR%\models(New)
-        pause
-        exit /b 1
-    )
-    echo          Extracting detection_models.zip...
-    powershell -NoProfile -ExecutionPolicy Bypass -Command "$ProgressPreference='SilentlyContinue'; Expand-Archive -Path 'detection_models.zip' -DestinationPath 'models(New)' -Force"
-    del detection_models.zip
-) else (
-    echo          Detection models already present.
-)
+call :DOWNLOAD_DETECTION
+call :DOWNLOAD_REPLY
+goto :AFTER_DOWNLOADS
 
-if not exist "models(New)\flan_t5_small_reply" (
-    echo          Downloading reply_model.zip (~273 MB)...
-    powershell -NoProfile -ExecutionPolicy Bypass -Command "$ProgressPreference='SilentlyContinue'; try { Invoke-WebRequest -Uri '%BASE_URL%/reply_model.zip' -OutFile 'reply_model.zip' -MaximumRedirection 5 } catch { exit 1 }"
-    if errorlevel 1 (
-        echo [ERROR] Failed to download reply_model.zip.
-        echo         You can manually download it from:
-        echo         %BASE_URL%/reply_model.zip
-        echo         and extract it to: %PROJECT_DIR%\models(New)
-        pause
-        exit /b 1
-    )
-    echo          Extracting reply_model.zip...
-    powershell -NoProfile -ExecutionPolicy Bypass -Command "$ProgressPreference='SilentlyContinue'; Expand-Archive -Path 'reply_model.zip' -DestinationPath 'models(New)' -Force"
-    del reply_model.zip
-) else (
-    echo          Reply model already present.
+:: ── SUBROUTINES ──────────────────────────────────────────────────
+:DOWNLOAD_DETECTION
+if exist "models(New)\distilbert_lora" goto :DETECTION_EXISTS
+echo          Downloading detection_models.zip (~253 MB)...
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$ProgressPreference='SilentlyContinue'; try { Invoke-WebRequest -Uri '%BASE_URL%/detection_models.zip' -OutFile 'detection_models.zip' -MaximumRedirection 5 } catch { exit 1 }"
+if errorlevel 1 (
+    echo [ERROR] Failed to download detection_models.zip.
+    echo         You can manually download it from:
+    echo         %BASE_URL%/detection_models.zip
+    echo         and extract it to: %PROJECT_DIR%\models(New)
+    pause
+    exit /b 1
 )
+echo          Extracting detection_models.zip...
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$ProgressPreference='SilentlyContinue'; Expand-Archive -Path 'detection_models.zip' -DestinationPath 'models(New)' -Force"
+del detection_models.zip
+goto :EOF
+
+:DETECTION_EXISTS
+echo          Detection models already present.
+goto :EOF
+
+:DOWNLOAD_REPLY
+if exist "models(New)\flan_t5_small_reply" goto :REPLY_EXISTS
+echo          Downloading reply_model.zip (~273 MB)...
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$ProgressPreference='SilentlyContinue'; try { Invoke-WebRequest -Uri '%BASE_URL%/reply_model.zip' -OutFile 'reply_model.zip' -MaximumRedirection 5 } catch { exit 1 }"
+if errorlevel 1 (
+    echo [ERROR] Failed to download reply_model.zip.
+    echo         You can manually download it from:
+    echo         %BASE_URL%/reply_model.zip
+    echo         and extract it to: %PROJECT_DIR%\models(New)
+    pause
+    exit /b 1
+)
+echo          Extracting reply_model.zip...
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$ProgressPreference='SilentlyContinue'; Expand-Archive -Path 'reply_model.zip' -DestinationPath 'models(New)' -Force"
+del reply_model.zip
+goto :EOF
+
+:REPLY_EXISTS
+echo          Reply model already present.
+goto :EOF
+
+:: ── AFTER DOWNLOADS ──────────────────────────────────────────────
+:AFTER_DOWNLOADS
 
 echo [6/6] Creating desktop shortcut...
 powershell -NoProfile -ExecutionPolicy Bypass -Command "$WshShell = New-Object -ComObject WScript.Shell; $sc = $WshShell.CreateShortcut('%USERPROFILE%\Desktop\Cyberbullying Detector.lnk'); $sc.TargetPath = '%PROJECT_DIR%\run.bat'; $sc.WorkingDirectory = '%PROJECT_DIR%'; $sc.IconLocation = '%SystemRoot%\System32\SHELL32.dll,14'; $sc.Description = 'Cyberbullying Detector + Safe Reply Generator'; $sc.Save()" >nul 2>&1
