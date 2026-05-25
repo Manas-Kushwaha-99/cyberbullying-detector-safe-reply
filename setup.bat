@@ -94,7 +94,7 @@ if errorlevel 1 (
 )
 
 echo [5/6] Downloading AI models...
-if not exist "models(New)" mkdir "models(New)"
+if not exist "models_new" mkdir "models_new"
 
 call :DOWNLOAD_DETECTION
 call :DOWNLOAD_REPLY
@@ -102,19 +102,19 @@ goto :AFTER_DOWNLOADS
 
 :: ── SUBROUTINES ──────────────────────────────────────────────────
 :DOWNLOAD_DETECTION
-if exist "models(New)\distilbert_lora" goto :DETECTION_EXISTS
+if exist "models_new\distilbert_lora" goto :DETECTION_EXISTS
 echo          Downloading detection_models.zip (~253 MB)...
 powershell -NoProfile -ExecutionPolicy Bypass -Command "$ProgressPreference='SilentlyContinue'; try { Invoke-WebRequest -Uri '%BASE_URL%/detection_models.zip' -OutFile 'detection_models.zip' -MaximumRedirection 5 } catch { exit 1 }"
 if errorlevel 1 (
     echo [ERROR] Failed to download detection_models.zip.
     echo         You can manually download it from:
     echo         %BASE_URL%/detection_models.zip
-    echo         and extract it to: %PROJECT_DIR%\models(New)
+    echo         and extract it to: %PROJECT_DIR%\models_new
     pause
     exit /b 1
 )
 echo          Extracting detection_models.zip...
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$ProgressPreference='SilentlyContinue'; Expand-Archive -Path 'detection_models.zip' -DestinationPath 'models(New)' -Force"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$ProgressPreference='SilentlyContinue'; Expand-Archive -Path 'detection_models.zip' -DestinationPath 'models_new' -Force"
 del detection_models.zip
 goto :EOF
 
@@ -123,19 +123,19 @@ echo          Detection models already present.
 goto :EOF
 
 :DOWNLOAD_REPLY
-if exist "models(New)\flan_t5_small_reply" goto :REPLY_EXISTS
+if exist "models_new\flan_t5_small_reply" goto :REPLY_EXISTS
 echo          Downloading reply_model.zip (~273 MB)...
 powershell -NoProfile -ExecutionPolicy Bypass -Command "$ProgressPreference='SilentlyContinue'; try { Invoke-WebRequest -Uri '%BASE_URL%/reply_model.zip' -OutFile 'reply_model.zip' -MaximumRedirection 5 } catch { exit 1 }"
 if errorlevel 1 (
     echo [ERROR] Failed to download reply_model.zip.
     echo         You can manually download it from:
     echo         %BASE_URL%/reply_model.zip
-    echo         and extract it to: %PROJECT_DIR%\models(New)
+    echo         and extract it to: %PROJECT_DIR%\models_new
     pause
     exit /b 1
 )
 echo          Extracting reply_model.zip...
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$ProgressPreference='SilentlyContinue'; Expand-Archive -Path 'reply_model.zip' -DestinationPath 'models(New)' -Force"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$ProgressPreference='SilentlyContinue'; Expand-Archive -Path 'reply_model.zip' -DestinationPath 'models_new' -Force"
 del reply_model.zip
 goto :EOF
 

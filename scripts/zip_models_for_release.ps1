@@ -4,7 +4,7 @@
 
 $ErrorActionPreference = "Stop"
 
-$ModelsDir = "models(New)"
+$ModelsDir = "models_new"
 $ReleaseDir = "release_assets"
 
 Write-Host "==========================================" -ForegroundColor Cyan

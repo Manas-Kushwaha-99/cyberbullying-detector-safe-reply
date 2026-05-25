@@ -19,7 +19,7 @@ def set_seed(seed=SEED):
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Use enhanced dataset V2 with synthetic samples for retraining
 DATA_PATH = os.path.join(BASE_DIR, "data", "synthetic", "cb_enhanced_v2.csv")
-MODELS_DIR = os.path.join(BASE_DIR, "models(New)")
+MODELS_DIR = os.path.join(BASE_DIR, "models_new")
 CHECKPOINTS_DIR = os.path.join(BASE_DIR, "checkpoints")
 FIGURES_DIR = os.path.join(BASE_DIR, "figures(New)")
 TABLES_DIR = os.path.join(BASE_DIR, "tables(New)")

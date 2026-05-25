@@ -59,7 +59,7 @@ The app will open at **http://localhost:8501**.
 │   ├── train_flan_t5_reply_v3.py   # Train reply generator
 │   └── ...
 ├── data/synthetic/                 # Enhanced dataset (generated)
-├── models(New)/                    # Trained models (downloaded from release)
+├── models_new/                     # Trained models (downloaded from release)
 ├── figures(New)/                   # Result figures
 ├── tables(New)/                    # Result tables
 └── reports(New)/                   # Consolidated metrics

@@ -28,7 +28,7 @@ build/
 *.safetensors
 *.bin
 /models/
-/models(New)/
+/models_new/
 checkpoints/
 
 # Old output directories

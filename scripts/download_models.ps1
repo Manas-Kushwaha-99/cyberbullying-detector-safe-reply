@@ -11,7 +11,7 @@ $GitHubRepo = "YOUR_REPO"
 $ReleaseTag = "v1.0.0"
 
 $BaseUrl = "https://github.com/$GitHubUser/$GitHubRepo/releases/download/$ReleaseTag"
-$ModelsDir = "models(New)"
+$ModelsDir = "models_new"
 
 Write-Host "==========================================" -ForegroundColor Cyan
 Write-Host "  Cyberbullying Detector Model Downloader" -ForegroundColor Cyan
