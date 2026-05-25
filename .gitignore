@@ -1,0 +1,84 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# Distribution / packaging
+*.egg-info/
+dist/
+build/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environments
+.env
+
+# Logs
+*.log
+
+# Model weights (large files go to GitHub Releases)
+*.pt
+*.pkl
+*.safetensors
+*.bin
+models/
+models(New)/
+checkpoints/
+
+# Old output directories
+figures/
+tables/
+reports/
+
+# Data (large; synthetic data can be regenerated via scripts)
+data/
+!data/.gitkeep
+
+# Release assets (built locally, uploaded to GitHub Releases)
+release_assets/
+
+# Output directories
+figures(New)/
+tables(New)/
+reports(New)/
+
+# Unpacked templates / temp
+unpacked_template/
+
+# Data files
+cb_multi_labeled_balanced.csv
+
+# PPT files
+*.pptx
+
+# Large markdown docs
+Plan.md
+"Whole conversation.md"
+cyberbullying_literature_review.md
+
+# Misc
+*.lnk
+*.url
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Large archives
+*.zip
+*.tar.gz
+
+# PPT and docs not part of code
+*.pptx
+*.md.bak
