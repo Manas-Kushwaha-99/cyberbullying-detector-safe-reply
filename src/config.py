@@ -11,22 +11,14 @@ def set_seed(seed=SEED):
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
-    torch.cuda.manual_seed_all(seed)
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
 
 # ── Paths ─────────────────────────────────────────────────────────
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Use enhanced dataset V2 with synthetic samples for retraining
 DATA_PATH = os.path.join(BASE_DIR, "data", "synthetic", "cb_enhanced_v2.csv")
 MODELS_DIR = os.path.join(BASE_DIR, "models_new")
-CHECKPOINTS_DIR = os.path.join(BASE_DIR, "checkpoints")
-FIGURES_DIR = os.path.join(BASE_DIR, "figures(New)")
-TABLES_DIR = os.path.join(BASE_DIR, "tables(New)")
-REPORTS_DIR = os.path.join(BASE_DIR, "reports(New)")
 
-for d in [MODELS_DIR, CHECKPOINTS_DIR, FIGURES_DIR, TABLES_DIR, REPORTS_DIR]:
-    os.makedirs(d, exist_ok=True)
+os.makedirs(MODELS_DIR, exist_ok=True)
 
 # ── Dataset ───────────────────────────────────────────────────────
 LABELS = ["not_cyberbullying", "ethnicity/race", "gender/sexual", "religion"]
