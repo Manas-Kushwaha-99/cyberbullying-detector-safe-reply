@@ -58,9 +58,11 @@ if errorlevel 1 (
 )
 
 echo [1/6] Extracting source code...
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$ProgressPreference='SilentlyContinue'; Expand-Archive -Path '%PROJECT_DIR%\source.zip' -DestinationPath '%PROJECT_DIR%\temp_src' -Force"
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$src = Get-ChildItem '%PROJECT_DIR%\temp_src' -Directory ^| Select-Object -First 1; if ($src) { robocopy $src.FullName '%PROJECT_DIR%' /E /MOVE ^> $null }"
-if exist "%PROJECT_DIR%\temp_src" rmdir /S /Q "%PROJECT_DIR%\temp_src"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Expand-Archive -Path '%PROJECT_DIR%\source.zip' -DestinationPath '%PROJECT_DIR%\_src' -Force"
+for /f "delims=" %%D in ('dir /b /ad "%PROJECT_DIR%\_src"') do (
+    robocopy "%PROJECT_DIR%\_src\%%D" "%PROJECT_DIR%" /E /MOVE >nul 2>&1
+)
+if exist "%PROJECT_DIR%\_src" rmdir /S /Q "%PROJECT_DIR%\_src"
 del "%PROJECT_DIR%\source.zip" >nul 2>&1
 cd /d "%PROJECT_DIR%"
 
