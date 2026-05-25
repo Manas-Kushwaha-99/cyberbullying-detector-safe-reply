@@ -27,8 +27,8 @@ build/
 *.pkl
 *.safetensors
 *.bin
-models/
-models(New)/
+/models/
+/models(New)/
 checkpoints/
 
 # Old output directories
@@ -37,8 +37,8 @@ tables/
 reports/
 
 # Data (large; synthetic data can be regenerated via scripts)
-data/
-!data/.gitkeep
+/data/
+!/data/.gitkeep
 
 # Release assets (built locally, uploaded to GitHub Releases)
 release_assets/
