@@ -142,8 +142,8 @@ def predict_tfidf(text, model):
         scores = model.pipeline.decision_function([proc_text])[0]
         # Convert to softmax-like probabilities
         exp_scores = torch.tensor(scores).exp()
-        probs = (exp_scores / exp_scores.sum()).numpy()
-        return pred, {LABELS[i]: float(probs[i]) for i in range(len(LABELS))}
+        probs_arr = (exp_scores / exp_scores.sum()).numpy()
+        return pred, {model.inv_label_map[i]: float(probs_arr[i]) for i in range(len(probs_arr))}
     except:
         return pred, {label: 0.25 for label in LABELS}
 
